@@ -127,7 +127,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .pin.is-open .dot,.pin.is-active .dot{transform:scale(1.5)}
 .pin.is-added .pill::before{background:#fff;box-shadow:0 0 0 2px var(--amber)}
 @media(max-width:720px){.pin .pill{--k:.62;font-size:14px;height:28px}}
-@media(max-width:720px){.hero-fig .pin .pill{--k:.55}}
+@media(max-width:720px){.hero-fig .pin .pill{--k:.55}.sched-photo .pin .pill{--k:.4;height:24px;font-size:12.5px;padding:0 9px 0 7px}}
 .pin.draw .l-bg,.pin.draw .l-fg{animation:draw 1.1s var(--ease) both}
 @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 
@@ -792,6 +792,7 @@ section{position:relative}
     ticking=false;
     var vh=window.innerHeight,vw=window.innerWidth;
     hdr.classList.toggle('is-scrolled',window.scrollY>24);
+    if(vw<=720)heroPins.forEach(function(p){if(p.classList.contains('is-open')&&!p.contains(document.activeElement)){var r=heroWrap.getBoundingClientRect();if(r.bottom<0||r.top>vh)p._close()}});
     /* parallax (hero photo) */
     parallax.forEach(function(el){
       if(reduced()){el.style.setProperty('--py','0px');var im=$('img',el);if(im)im.style.setProperty('--py','0px');return}
