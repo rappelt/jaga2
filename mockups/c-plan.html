@@ -391,7 +391,7 @@ html.reduced .sw{transform:none}
     <div class="wrap">
       <div class="mfr-top">
         <div style="display:grid;gap:14px">
-          <span class="tag on-ink">Sample cabinet</span>
+          <span class="tag on-ink" style="justify-self:start">Sample cabinet</span>
           <h2 class="display">13 manufacturers, one specification partner.</h2>
           <p class="lede">We do not make furniture. We curate the makers we trust for contract use and specify across them, so one project list can cover every brand.</p>
         </div>
@@ -662,7 +662,7 @@ var track=document.getElementById('track');
 M.forEach(function(m,i){
   var c=document.createElement('article');c.className='card';
   c.innerHTML='<div class="logo-wrap"><span class="wm" data-l="'+m[0].length+'">'+m[0]+'</span></div>'+
-   '<h3>'+m[0]+'</h3><div class="cat"><span class="tag">'+m[2]+'</span></div><p>'+m[3]+'</p>'+
+   '<h3 class="sr">'+m[0]+'</h3><div class="cat"><span class="tag">'+m[2]+'</span></div><p>'+m[3]+'</p>'+
    '<button class="btn small add" data-add="'+m[0]+' — '+m[2].toLowerCase()+'|'+(['CH','CH','CH','CH','CH','CH','CH','SO','SO','CH','CH','CH','DK'][i])+'-'+('0'+(i+1)).slice(-2)+'|Manufacturer from the sample cabinet">Add to list</button>';
   track.appendChild(c);
 });

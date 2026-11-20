@@ -730,6 +730,8 @@ section{position:relative}
     heroPins.forEach(function(p){if(!p.contains(e.target)){p._close()}});
   });
   refreshLeaders(heroWrap);
+  function placeAll(){heroPins.forEach(place)}
+  placeAll();
 
   /* ---------- schedule ---------- */
   var sched=[
@@ -820,7 +822,7 @@ section{position:relative}
   }
   function req(){if(!ticking){ticking=true;requestAnimationFrame(frame)}}
   window.addEventListener('scroll',req,{passive:true});
-  window.addEventListener('resize',function(){refreshLeaders(heroWrap);refreshLeaders(sWrap);req()});
+  window.addEventListener('resize',function(){refreshLeaders(heroWrap);refreshLeaders(sWrap);placeAll();req()});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(req);
   window.addEventListener('load',req);
   renderList();frame();
