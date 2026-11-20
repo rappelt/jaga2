@@ -13,6 +13,7 @@ Stand: 20.11.2026. Alle Seiten wurden live aufgerufen und per Playwright erfasst
 **Stärken:** klare B2B-Abgrenzung, eigene Architekten-Ansprache, dreisprachig, Astro-Basis, starke Herstellerliste.
 
 **Schwächen:**
+- **Hersteller-Logos sind KI-generierte Fälschungen** mit verstümmeltem Text (Infiniti „FUNRN HLURE“, Pedrali „INSIIUANT FURRANY“, Thonet und TON als Stuhlfotos, Plust und Wilkhahn weiß auf weiß). Markenrechtliches Risiko. Offizielle Logos bei den Herstellern anfordern. Die Mockups setzen die Namen deshalb als Schrift.
 - Impressum mit Platzhaltern (Warszawa, Nullnummern, „Jan Kowalski"), widerspricht der Kontaktseite (Gdańsk). **Rechtlich zuerst beheben.**
 - Unbelegte Aussagen („verified partners", „24 h", „100 % B2B"), keine Telefonnummer.
 - Zwei generische Stockfotos, je doppelt verwendet; keine Projektfotos.
