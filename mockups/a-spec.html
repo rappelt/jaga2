@@ -242,24 +242,28 @@ section{position:relative}
 @media(max-width:900px){.arch-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.desk li{grid-template-columns:1fr}}
 
-/* ---- process ---- */
-.proc-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(24px,5vw,88px);align-items:start}
-.proc-grid .intro{position:sticky;top:calc(var(--header-h) + 32px)}
-.proc-grid h2{font-size:clamp(2rem,1rem + 3vw,3.8rem);line-height:1}
-.proc-grid .intro p{margin-top:20px;color:var(--stone);max-width:26em}
-.steps{position:relative;list-style:none;margin:0;padding:0 0 0 clamp(56px,7vw,92px);--progress:0}
-.steps::before,.steps .fill{content:"";position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:var(--pier)}
-.steps .fill{background:var(--ink);transform:scaleY(var(--progress));transform-origin:top;z-index:1}
-.step{position:relative;padding:0 0 clamp(36px,6vw,72px)}
-.step:last-child{padding-bottom:0}
-.step .n{position:absolute;left:calc(clamp(56px,7vw,92px) * -1);top:0;width:40px;height:40px;border-radius:50%;background:var(--fog);border:2px solid var(--pier);display:grid;place-items:center;font-stretch:75%;font-weight:700;font-size:17px;z-index:2;color:var(--stone);transition:background .45s var(--ease),border-color .45s var(--ease),color .45s var(--ease)}
-.step h3{font-size:clamp(1.4rem,1rem + 1.4vw,2.2rem);color:var(--stone);transition:color .45s var(--ease);padding-top:4px}
-.step p{margin-top:10px;color:var(--stone);max-width:36em}
-.step .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.step.is-reached .n{background:var(--ink);border-color:var(--ink);color:#fff}
-.step.is-reached h3{color:var(--ink)}
-.step.is-reached .tag::before{background:var(--amber)}
-@media(max-width:820px){.proc-grid{grid-template-columns:1fr}.proc-grid .intro{position:static}}
+/* ---- process (horizontal, after direction B) ---- */
+#process .sec-head{grid-template-columns:1fr;gap:14px}
+.proc{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(16px,2vw,32px);--progress:0}
+.proc::before,.proc .fill{content:"";position:absolute;left:0;right:0;top:11px;height:2px;background:var(--pier)}
+.proc .fill{background:var(--amber);transform:scaleX(var(--progress));transform-origin:left;box-shadow:0 0 12px rgba(226,137,28,.45);z-index:1}
+.proc li{position:relative;padding-top:48px;z-index:2;min-width:0}
+.proc li::before{content:"";position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--fog);border:2px solid var(--pier);transition:background .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease)}
+.proc li.fill{padding:0;list-style:none}
+.proc li.fill::before{content:none}
+.proc li.is-reached::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 0 6px rgba(226,137,28,.18)}
+.proc .num{display:inline-grid;place-items:center;min-width:44px;height:28px;padding:0 10px;border-radius:999px;border:1.5px solid var(--amber-d);color:var(--amber-d);font-stretch:75%;font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease)}
+.proc li.is-reached .num{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.proc h3{font-size:clamp(1.1rem,.8rem + 1vw,1.5rem);font-stretch:112%;font-weight:700;letter-spacing:-.01em;line-height:1.12;margin:14px 0 10px;text-wrap:balance}
+.proc p{margin:0;color:var(--stone);font-size:16px;max-width:30ch}
+@media(max-width:980px){
+  .proc{grid-template-columns:1fr;gap:0;padding-left:44px}
+  .proc::before,.proc .fill{left:11px;right:auto;top:0;bottom:0;width:2px;height:auto}
+  .proc .fill{transform:scaleY(var(--progress));transform-origin:top}
+  .proc li{padding:0 0 36px}
+  .proc li::before{left:-44px;top:2px}
+  .proc li:last-child{padding-bottom:0}
+}
 
 /* ---- projects strip ---- */
 .projects{height:240vh;background:var(--paper)}
@@ -494,20 +498,18 @@ section{position:relative}
 <!-- PROCESS -->
 <section class="sec" id="process" aria-labelledby="proc-h">
   <div class="wrap">
-    <div class="proc-grid">
-      <div class="intro">
-        <h2 id="proc-h">Five steps from plan to place.</h2>
-        <p>One partner from the first site plan to the last chair set in place.</p>
-      </div>
-      <ol class="steps" id="steps">
-        <li class="fill" aria-hidden="true" style="list-style:none"></li>
-        <li class="step"><span class="n">1</span><h3>Brief and site plan</h3><p>We read your plan, the sector and the seat count, and agree what the room has to do.</p><div class="tags"><span class="tag">Plan</span><span class="tag">Seat count</span></div></li>
-        <li class="step"><span class="n">2</span><h3>Specification and tender documents</h3><p>Manufacturer advice, CAD/BIM data and the FF&amp;E schedule, ready for tender.</p><div class="tags"><span class="tag">CAD/BIM</span><span class="tag">FF&amp;E schedule</span></div></li>
-        <li class="step"><span class="n">3</span><h3>Samples and finishes</h3><p>Fabric, wood and frame colours in your hands before anything is ordered.</p><div class="tags"><span class="tag">Fabric</span><span class="tag">Wood</span><span class="tag">Frame</span></div></li>
-        <li class="step"><span class="n">4</span><h3>Ordering, logistics, delivery</h3><p>One order across brands, consolidated and delivered to site on your schedule.</p><div class="tags"><span class="tag">Order</span><span class="tag">Delivery</span></div></li>
-        <li class="step"><span class="n">5</span><h3>Installation and acceptance</h3><p>Furniture placed as planned, checked against the schedule and handed over.</p><div class="tags"><span class="tag">Install</span><span class="tag">Acceptance</span></div></li>
-      </ol>
+    <div class="sec-head">
+      <h2 id="proc-h">Five steps from plan to place.</h2>
+      <p>One partner from the first site plan to the last chair set in place.</p>
     </div>
+    <ol class="proc" id="steps">
+      <li class="fill" aria-hidden="true"></li>
+      <li class="step"><span class="num">01</span><h3>Brief and site plan</h3><p>We read the plan, the sector and the seat count before any product is named.</p></li>
+      <li class="step"><span class="num">02</span><h3>Specification and tender documents</h3><p>Manufacturer advice, CAD/BIM data and the FF&amp;E schedule, ready for tender.</p></li>
+      <li class="step"><span class="num">03</span><h3>Samples and finishes</h3><p>Fabric, wood and frame-colour samples in your hands before anything is ordered.</p></li>
+      <li class="step"><span class="num">04</span><h3>Ordering, logistics, delivery</h3><p>One order across all brands, delivered to site on your schedule.</p></li>
+      <li class="step"><span class="num">05</span><h3>Installation and acceptance</h3><p>Placed to the plan, checked against the schedule and handed over.</p></li>
+    </ol>
   </div>
 </section>
 
@@ -809,10 +811,16 @@ section{position:relative}
     if(sec.top>vh*0.85||sec.bottom<vh*0.15){best=-1}
     setActive(best);
     /* process progress */
-    var sr=steps.getBoundingClientRect();
-    var prog=clamp((vh*0.6-sr.top-20)/(sr.height-40),0,1);
+    var sr=steps.getBoundingClientRect(), prog;
+    if(window.innerWidth>980){
+      prog=clamp((vh*0.82-sr.top)/(vh*0.45),0,1);
+      stepEls.forEach(function(li,i){li.classList.toggle('is-reached',prog>=i/(stepEls.length-1)-0.001)});
+    } else {
+      prog=clamp((vh*0.6-sr.top)/sr.height,0,1);
+      stepEls.forEach(function(li){li.classList.toggle('is-reached',li.getBoundingClientRect().top<vh*0.6)});
+    }
+    if(reduced()){prog=1;stepEls.forEach(function(li){li.classList.add('is-reached')});}
     steps.style.setProperty('--progress',prog.toFixed(4));
-    stepEls.forEach(function(s){var b=s.getBoundingClientRect();s.classList.toggle('is-reached',b.top<vh*0.6)});
     /* projects strip */
     if(!reduced() && getComputedStyle($('.proj-sticky')).position==='sticky'){
       var pr=projects.getBoundingClientRect();
