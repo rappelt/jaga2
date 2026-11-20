@@ -1,0 +1,268 @@
+<title>JAGA Website V2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* Layout: one 1120px editorial column; analysis as tables, CI as specimen sheet, mockups as three large previews. */
+:root{
+  --ink:#16232B; --amber:#E2891C; --amber-d:#A65E0B; --brick:#8E3B2B;
+  --fog:#ECEEEC; --pier:#C9CFCB; --paper:#FFFFFF; --stone:#55626A;
+  --bg:var(--fog); --fg:var(--ink); --surface:var(--paper); --muted:var(--stone); --line:var(--pier); --link:var(--amber-d);
+  --good:#2F6B4F; --bad:#8E3B2B;
+  --f:"Archivo","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101A20;--fg:#E6EAE8;--surface:#16232B;--muted:#9AA8AF;--line:#2C3B44;--link:#F0A54A;--good:#7CC3A0;--bad:#E58B76;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101A20;--fg:#E6EAE8;--surface:#16232B;--muted:#9AA8AF;--line:#2C3B44;--link:#F0A54A;--good:#7CC3A0;--bad:#E58B76;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--f);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;padding-block:48px 96px;display:grid;gap:88px}
+h1,h2,h3{font-stretch:125%;line-height:1.02;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,1.4rem+4.2vw,4.6rem);font-weight:800}
+h2{font-size:clamp(1.7rem,1.2rem+1.8vw,2.6rem);font-weight:750}
+h3{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0;max-width:65ch;text-wrap:pretty}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.code{font-stretch:75%;font-weight:600;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{display:grid;gap:28px}
+.lede{font-size:1.2rem;max-width:58ch}
+.head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.head svg{width:170px;height:auto;color:var(--fg)}
+.head span{color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--fg);border-radius:999px;padding:1px 10px 1px 6px;font-size:.82rem;white-space:nowrap}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px 40px}
+.cols>*{min-width:0;display:grid;gap:10px;align-content:start}
+ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.scroll{overflow-x:auto;border-top:2px solid var(--fg)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+th{font-stretch:75%;font-weight:650;color:var(--muted);font-size:.85rem}
+td:first-child{font-weight:650;white-space:nowrap}
+td .muted{display:block;font-weight:400;font-size:.85rem}
+.plus{color:var(--good)} .minus{color:var(--bad)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;border-top:2px solid var(--fg)}
+.verdict>div{padding:20px 24px 20px 0;display:grid;gap:10px;align-content:start}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.sw{display:grid;gap:6px;font-size:.88rem}
+.sw i{display:block;height:92px;border-radius:4px;border:1px solid var(--line)}
+.sw b{font-weight:650}
+.specimen{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px;display:grid;gap:18px;min-width:0}
+.specimen .d{font-stretch:125%;font-weight:800;font-size:clamp(2rem,1rem+4vw,4rem);line-height:.98;letter-spacing:-.025em}
+.specimen .row{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline}
+.mock{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:28px;border-top:2px solid var(--fg)}
+.mock img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--line);background:var(--surface)}
+.mock .txt{display:grid;gap:12px;align-content:start}
+.btn{display:inline-block;justify-self:start;background:var(--amber);color:#16232B;text-decoration:none;font-weight:650;padding:11px 20px;border-radius:999px}
+.btn:hover{background:#F0A54A}
+.steps{counter-reset:s;display:grid;gap:10px;padding:0;list-style:none}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.2em 1fr;gap:8px}
+.steps li::before{content:counter(s);font-stretch:75%;font-weight:700;color:var(--link)}
+@media (max-width:760px){.mock{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+
+<header style="display:grid;gap:28px">
+  <div class="head">
+    <svg viewBox="0 0 236 64" aria-label="JAGA"><path d="M6 6h14v38h30v14H6z" fill="#E2891C"/><rect x="26" y="6" width="24" height="30" fill="none" stroke="currentColor" stroke-width="5"/><text x="64" y="50" font-family="Archivo, Arial Black, sans-serif" font-weight="800" font-size="48" font-stretch="125%" letter-spacing="1" fill="currentColor">JAGA</text></svg>
+    <span>Website V2: Analyse, Wettbewerb, CI und drei Mockups</span>
+  </div>
+  <h1>Vom Plan zum Platz.</h1>
+  <p class="lede">JAGA ist kein Möbelshop und kein Hersteller. JAGA ist der Spezifikationspartner zwischen Architekten und 13 europäischen Contract-Herstellern. Die neue Website soll genau das zeigen. Diese Seite fasst Analyse, Wettbewerbsvergleich und das neue Erscheinungsbild zusammen und verlinkt die drei Entwürfe.</p>
+</header>
+
+<section id="ist">
+  <h2>Was JAGA heute macht</h2>
+  <div class="cols">
+    <div>
+      <h3>Geschäft</h3>
+      <p>B2B-Einrichter für Gewerbeflächen aus Gdańsk (JAGA Trendy Sp. z o.o.). Beratung bei Hersteller­wahl und Ausschreibung, Muster, CAD-Daten, Lieferung bis zur Abnahme. Nur für Gewerbekunden.</p>
+    </div>
+    <div>
+      <h3>Hersteller</h3>
+      <p>Pedrali, Magis, Plust, Thonet, Infiniti (Café/Restaurant), Paged, TON (Holzstühle), Alias, Softline (Sofas), Wilkhahn, Profim, Bejot (Bürostühle), LAS (Bürosysteme).</p>
+    </div>
+    <div>
+      <h3>Referenzen und Märkte</h3>
+      <p>Hard Rock Cafe Warschau (200+ Sitzplätze), Premium-Büro Berlin (120+ Arbeitsplätze), Boutique-Hotel Krakau (80+ Möbel). Märkte PL, DE, international; Sprachen PL, EN, DE.</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Was an der aktuellen Seite gut ist</h3>
+      <ul>
+        <li>Klare B2B-Abgrenzung und eine eigene Ansprache für Architekten</li>
+        <li>Dreisprachig mit sauberer URL-Struktur, schnelles Astro-Setup</li>
+        <li>Starke Herstellerliste als Kapital</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Was die neue Seite lösen muss</h3>
+      <ul>
+        <li>Impressum enthält Platzhalter (Warszawa, Nullnummern) und widerspricht der Kontaktseite (Gdańsk)</li>
+        <li>Generische Stockfotos, doppelt verwendet; keine Bilder realisierter Projekte</li>
+        <li>Vier konkurrierende Akzentfarben, keine eigene Schrift, Logo nur 112 px breit</li>
+        <li>Aussagen wie „verified partners" oder „24 h" ohne Beleg; keine Telefonnummer</li>
+        <li>Deutsche Texte fest in der EN- und PL-Startseite</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="wettbewerb">
+  <h2>Wettbewerb: 14 Seiten geprüft, 11 auswertbar</h2>
+  <p class="muted">Alle Seiten wurden am 20.11.2026 live aufgerufen, per Screenshot erfasst und ausgewertet. lino.cz, mesmetric.com und utilitydesign.co.uk blockierten den automatischen Zugriff (Cloudflare) und fehlen deshalb in der Bewertung.</p>
+  <div class="scroll" tabindex="0" aria-label="Wettbewerbstabelle, horizontal scrollbar">
+  <table>
+    <thead><tr><th>Anbieter</th><th>Modell</th><th>Stärke</th><th>Schwäche</th><th>Idee für JAGA</th></tr></thead>
+    <tbody>
+      <tr><td>.mdd<span class="muted">Polen, mdd.eu</span></td><td>Hersteller, Office und Contract</td><td>Bester Hero im Feld: ein Satz, ein Button, großes Raumfoto. „For Architects" und „B2B" im Hauptmenü</td><td>Nur eine Marke, Preisanzeige verwässert B2B</td><td>Projektgalerie mit Nennung von Architekt und Fotograf</td></tr>
+      <tr><td>Nowy Styl<span class="muted">Polen, nowystyl.com</span></td><td>Großhersteller, 70+ Länder</td><td>Navigation nach Räumen (Hotel, Restaurant, Office), Wissensbereich, Partner Zone für Architekten</td><td>Hero zeigt nur eine Messe-Kampagne, Menü versteckt im Burger</td><td>Einstieg „nach Raum", nicht nur nach Produkt</td></tr>
+      <tr><td>9design<span class="muted">Polen, 9design.pl</span></td><td>Händler und Showroom Warschau</td><td>Ausgebautes Architektenangebot: Servicebüro, 3D-Modelle, empfohlene Architekten, 3D-Rundgang</td><td>Retail-Optik, Rabatt-Pop-up, Darstellungsfehler</td><td>„Biuro Obsługi Architekta" als eigener Service</td></tr>
+      <tr><td>Alax<span class="muted">Tschechien, alax.cz</span></td><td>Händler mit Contract-Sparte, führt Pedrali und Bejot</td><td>Segmente (Hotels, Office, Healthcare), PROFIZONE-Login, Telefon sichtbar</td><td>Marktplatz-Dichte, 12,8 px Grundschrift, Sprachmix</td><td>Geschützter Profi-Bereich mit Downloads</td></tr>
+      <tr><td>smow<span class="muted">Deutschland, smow.de</span></td><td>Design-Händler, 17 Stores, B2B-Sparte „smow works"</td><td>Lieferzeit auf jeder Karte, Beratung buchbar, Trusted-Shops-Bewertung</td><td>Konsumenten-lastig, B2B im Footer versteckt</td><td>Lieferzeit ab Werk und Musterverfügbarkeit zeigen</td></tr>
+      <tr><td>architare<span class="muted">Deutschland, architare.de</span></td><td>Premiumhändler mit Office-Planung</td><td>Service-Navigation (Office-Planung, New Work Lab), Einzeiler pro Marke</td><td>Visuell nicht bewertbar (CSS lud nicht)</td><td>Ein Satz Haltung zu jedem Hersteller</td></tr>
+      <tr><td>De Projectinrichter<span class="muted">Niederlande</span></td><td>Markenunabhängiger Projekteinrichter, 250+ Marken</td><td>Angebotsliste statt Warenkorb, Phasenmodell, Zertifikate, Kreislauf-Story</td><td>Template-Optik, Schreibschrift passt nicht zur Grundschrift</td><td>„Projektliste": sammeln über alle Marken, eine Anfrage</td></tr>
+      <tr><td>Contract Furniture Store<span class="muted">UK</span></td><td>Spezialist für europäische Contract-Möbel</td><td>Einstieg nach Branche, „Send us your specification", Kundenlogos</td><td>Generischer Shopify-Look, SEO-Fülltexte</td><td>Branchen-Einstieg direkt unter dem Hero</td></tr>
+      <tr><td>Living Edge<span class="muted">Australien</span></td><td>Händler (u. a. Herman Miller)</td><td>Startseite trennt sofort „Home" und „Professional"</td><td>Inhalt hinter der Weiche, schwacher Kontrast</td><td>Dauerhafter Einstieg „Für Architekten" im Header</td></tr>
+      <tr><td>Space Furniture<span class="muted">Australien</span></td><td>Importeur italienischer Marken, Showrooms</td><td>Services getrennt nach Trade, Commercial, Architectural; Journal mit Projekten</td><td>Startseite führt mit 50 % Rabatt</td><td>Klare Service-Taxonomie</td></tr>
+      <tr><td>Stylecraft<span class="muted">Australien</span></td><td>Importeur und Contract-Spezialist seit 1953</td><td>Sektor-Kacheln, Projekte mit Kundennamen, Showroom pro Stadt</td><td>Outlet-Sale im Hero, kein klarer Haupt-Button</td><td>Referenzen immer mit Ort, Sektor und Umfang</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="bewertung">
+  <h2>Vor- und Nachteile im Markt</h2>
+  <div class="verdict">
+    <div>
+      <h3 class="plus">Was die Besten richtig machen</h3>
+      <ul>
+        <li>Profis werden sofort abgeholt: „Für Architekten" steht im Hauptmenü</li>
+        <li>Einstieg nach Branche oder Raum statt nach Produktkategorie</li>
+        <li>Referenzen mit Ort, Architekt und Umfang als wichtigster Vertrauensbeweis</li>
+        <li>Ruhige, fotogeführte Gestaltung mit einer Akzentfarbe und einer Groteskschrift</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="minus">Wo fast alle schwach sind</h3>
+      <ul>
+        <li>Rabatte und Sales im Hero beschädigen das Premium-Versprechen</li>
+        <li>Shop-Warenkorb statt Anfrageliste, obwohl Projekte per Angebot laufen</li>
+        <li>B2B-Leistungen im Footer oder Burger-Menü versteckt</li>
+        <li>Austauschbare Optik: weiß, schwarz, ein Gelb oder Orange</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Lücke, die JAGA besetzen kann</h3>
+      <ul>
+        <li>Keine der geprüften Seiten zeigt CAD/BIM-Downloads und Musterservice prominent</li>
+        <li>Niemand denkt in der Sprache der Architekten: Positionsnummern, Möbellisten, Ausschreibung</li>
+        <li>Herstellerübergreifende Projektliste mit einer Anfrage gibt es nur in den Niederlanden</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="ci">
+  <h2>Das neue CI</h2>
+  <div class="cols">
+    <div>
+      <h3>Positionierung</h3>
+      <p>Der Spezifikationspartner zwischen Architekten und Europas Contract-Herstellern. Wir spezifizieren, bemustern und liefern, aus einer Hand und über alle Marken.</p>
+    </div>
+    <div>
+      <h3>Claim</h3>
+      <p><b>Od planu do miejsca.</b> / <b>Vom Plan zum Platz.</b> / <b>From plan to place.</b></p>
+    </div>
+    <div>
+      <h3>Herkunft als Idee</h3>
+      <p>Gdańsk ist die Welthauptstadt des Bernsteins. Das Bernstein-Orange steckt schon im alten Logo. Dazu kommen die Ostsee als Tinte, der gotische Backstein als Zweitfarbe und Ostsee-Nebel als heller Grund.</p>
+    </div>
+  </div>
+
+  <div class="swatches" aria-label="Farbpalette">
+    <div class="sw"><i style="background:#16232B"></i><b>Baltic Ink</b><span class="code">#16232B</span><span class="muted">Text, dunkle Flächen</span></div>
+    <div class="sw"><i style="background:#E2891C"></i><b>Bursztyn</b><span class="code">#E2891C</span><span class="muted">Akzent, Marken, Buttons</span></div>
+    <div class="sw"><i style="background:#A65E0B"></i><b>Bursztyn tief</b><span class="code">#A65E0B</span><span class="muted">Links auf Hell</span></div>
+    <div class="sw"><i style="background:#8E3B2B"></i><b>Cegła</b><span class="code">#8E3B2B</span><span class="muted">Backstein, sparsam</span></div>
+    <div class="sw"><i style="background:#ECEEEC"></i><b>Mgła</b><span class="code">#ECEEEC</span><span class="muted">Heller Grund</span></div>
+    <div class="sw"><i style="background:#C9CFCB"></i><b>Molo</b><span class="code">#C9CFCB</span><span class="muted">Linien, Raster</span></div>
+  </div>
+
+  <div class="specimen">
+    <div class="d">From plan to place.</div>
+    <div class="row">
+      <p>Archivo als einzige Schrift. Die Breite trägt die Persönlichkeit: <b style="font-stretch:125%">Expanded 800</b> für Headlines, normal für Fließtext, <span class="code">Condensed 600</span> für Positionsnummern und Mengen.</p>
+    </div>
+    <div class="row">
+      <span class="tag code">CH-01 Bistrostuhl</span>
+      <span class="tag code">ST-02 Barhocker</span>
+      <span class="tag code">SO-04 Lounge-Sofa</span>
+      <span class="muted">Das Spec-Tag: die Positionsmarke aus Plan und Möbelliste. Es ist das wiedererkennbare Element der Marke, als Hotspot auf Fotos, als Listenpunkt und in Referenzen.</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Logo</h3>
+      <p>Raumecke aus dem Grundriss in Bernstein plus ein Quadrat als Stuhl in der Ansicht, daneben JAGA in Archivo Expanded. „Trendy" bleibt im Firmennamen, nicht im Zeichen.</p>
+    </div>
+    <div>
+      <h3>Bewegung</h3>
+      <p>Die Scroll-Technik deiner Interior-Seite: eine schlanke Scroll-Schleife, Parallaxe, Linien, die sich zeichnen, Fortschrittslinie im Ablauf, horizontaler Sticky-Streifen. Ohne Bibliothek, mit Reduced-Motion-Fallback.</p>
+    </div>
+    <div>
+      <h3>Nicht verwenden</h3>
+      <p>Rabatte, Großbuchstaben-Labels über jeder Überschrift, Stockfotos von Meetings, unbelegte Zahlen und Versprechen.</p>
+    </div>
+  </div>
+</section>
+
+<section id="mockups">
+  <h2>Drei Entwürfe, ein CI</h2>
+  <p class="muted">Alle drei nutzen dieselbe Marke und dieselben Inhalte. Sie unterscheiden sich in Stimmung und im zentralen Moment. Die Fotos sind Platzhalter von Unsplash, bis eigene Projektfotos vorliegen.</p>
+
+  <div class="mock">
+    <img src="shots/a-spec.png" alt="Vorschau Entwurf A: heller Entwurf mit Restaurantfoto und Spec-Tags" loading="lazy">
+    <div class="txt">
+      <h3>A: Spec</h3>
+      <p>Hell und präzise wie eine gut gesetzte Möbelliste. Im Hero sitzen Spec-Tags direkt auf den Stühlen im Foto. Ein Klick zeigt Typ und Hersteller und legt die Position auf die Projektliste. Beim Scrollen leuchten die Positionen einer Möbelliste im Foto auf.</p>
+      <a class="btn" href="a-spec.html" target="_blank" rel="noopener">Entwurf A öffnen</a>
+    </div>
+  </div>
+
+  <div class="mock">
+    <img src="shots/b-bursztyn.png" alt="Vorschau Entwurf B: dunkler Entwurf mit großer Headline und Bernstein-Akzenten" loading="lazy">
+    <div class="txt">
+      <h3>B: Bursztyn</h3>
+      <p>Dunkel und filmisch, Bernstein leuchtet auf Ostsee-Tinte. Das Restaurantfoto startet als kleines Fenster und öffnet sich beim Scrollen auf volle Breite. Branchen und Hersteller stehen als große Typo-Listen mit Bild-Vorschau.</p>
+      <a class="btn" href="b-bursztyn.html" target="_blank" rel="noopener">Entwurf B öffnen</a>
+    </div>
+  </div>
+
+  <div class="mock">
+    <img src="shots/c-plan.png" alt="Vorschau Entwurf C: Grundriss eines Restaurants mit Stuhlpunkten und Materialmustern" loading="lazy">
+    <div class="txt">
+      <h3>C: Plan</h3>
+      <p>Das Zeichenbrett des Architekten und am nächsten an deiner Interior-Seite. Ein Restaurant-Grundriss zeichnet sich, dann erscheinen 200 Stuhlpunkte (Hard Rock Cafe Warschau). Dazu schwebende Materialmuster, Hersteller als Musterkarten im horizontalen Streifen und eine Projektliste als Schublade.</p>
+      <a class="btn" href="c-plan.html" target="_blank" rel="noopener">Entwurf C öffnen</a>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <h2>Empfehlung und nächste Schritte</h2>
+  <p>Meine Empfehlung ist <b>A (Spec)</b> als Basis, mit dem Grundriss-Moment aus C für die Architektenseite. A verkauft am direktesten, was JAGA von Händlern unterscheidet, und bleibt hell und gut lesbar für Ausschreibungsarbeit.</p>
+  <ol class="steps">
+    <li>Impressum und Kontakt vereinheitlichen (Gdańsk, KRS, NIP, Telefon)</li>
+    <li>Eigene Fotos der drei Referenzprojekte beschaffen</li>
+    <li>Richtung festlegen und Feinschliff (Logo-Reinzeichnung, Unterseiten)</li>
+    <li>Umsetzung im bestehenden Astro-Projekt mit PL/EN/DE und der Projektliste als Lead-Formular in Supabase</li>
+  </ol>
+</section>
+
+</div>
