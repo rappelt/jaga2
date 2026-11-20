@@ -1,0 +1,270 @@
+<title>JAGA Website V2 (English)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<style>
+/* Layout: one 1120px editorial column; analysis as tables, CI as specimen sheet, mockups as three large previews. */
+:root{
+  --ink:#16232B; --amber:#E2891C; --amber-d:#A65E0B; --brick:#8E3B2B;
+  --fog:#ECEEEC; --pier:#C9CFCB; --paper:#FFFFFF; --stone:#55626A;
+  --bg:var(--fog); --fg:var(--ink); --surface:var(--paper); --muted:var(--stone); --line:var(--pier); --link:var(--amber-d);
+  --good:#2F6B4F; --bad:#8E3B2B;
+  --f:"Archivo","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101A20;--fg:#E6EAE8;--surface:#16232B;--muted:#9AA8AF;--line:#2C3B44;--link:#F0A54A;--good:#7CC3A0;--bad:#E58B76;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101A20;--fg:#E6EAE8;--surface:#16232B;--muted:#9AA8AF;--line:#2C3B44;--link:#F0A54A;--good:#7CC3A0;--bad:#E58B76;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--f);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1120px;margin:0 auto;padding-block:48px 96px;display:grid;gap:88px}
+h1,h2,h3{font-stretch:125%;line-height:1.02;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.4rem,1.4rem+4.2vw,4.6rem);font-weight:800}
+h2{font-size:clamp(1.7rem,1.2rem+1.8vw,2.6rem);font-weight:750}
+h3{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0;max-width:65ch;text-wrap:pretty}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.code{font-stretch:75%;font-weight:600;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+section{display:grid;gap:28px}
+.lede{font-size:1.2rem;max-width:58ch}
+.head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.head svg{width:170px;height:auto;color:var(--fg)}
+.head span{color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--fg);border-radius:999px;padding:1px 10px 1px 6px;font-size:.82rem;white-space:nowrap}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px 40px}
+.cols>*{min-width:0;display:grid;gap:10px;align-content:start}
+ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.scroll{overflow-x:auto;border-top:2px solid var(--fg)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:12px 14px 12px 0;border-bottom:1px solid var(--line)}
+th{font-stretch:75%;font-weight:650;color:var(--muted);font-size:.85rem}
+td:first-child{font-weight:650;white-space:nowrap}
+td .muted{display:block;font-weight:400;font-size:.85rem}
+.plus{color:var(--good)} .minus{color:var(--bad)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;border-top:2px solid var(--fg)}
+.verdict>div{padding:20px 24px 20px 0;display:grid;gap:10px;align-content:start}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.sw{display:grid;gap:6px;font-size:.88rem}
+.sw i{display:block;height:92px;border-radius:4px;border:1px solid var(--line)}
+.sw b{font-weight:650}
+.specimen{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px;display:grid;gap:18px;min-width:0}
+.specimen .d{font-stretch:125%;font-weight:800;font-size:clamp(2rem,1rem+4vw,4rem);line-height:.98;letter-spacing:-.025em}
+.specimen .row{display:flex;gap:24px;flex-wrap:wrap;align-items:baseline}
+.mock{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:28px;border-top:2px solid var(--fg)}
+.mock img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:6px;border:1px solid var(--line);background:var(--surface)}
+.mock .txt{display:grid;gap:12px;align-content:start}
+.btn{display:inline-block;justify-self:start;background:var(--amber);color:#16232B;text-decoration:none;font-weight:650;padding:11px 20px;border-radius:999px}
+.btn:hover{background:#F0A54A}
+.steps{counter-reset:s;display:grid;gap:10px;padding:0;list-style:none}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.2em 1fr;gap:8px}
+.steps li::before{content:counter(s);font-stretch:75%;font-weight:700;color:var(--link)}
+@media (max-width:760px){.mock{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+
+<header style="display:grid;gap:28px">
+  <div class="head">
+    <svg viewBox="0 0 236 64" aria-label="JAGA"><path d="M6 6h14v38h30v14H6z" fill="#E2891C"/><rect x="26" y="6" width="24" height="30" fill="none" stroke="currentColor" stroke-width="5"/><text x="64" y="50" font-family="Archivo, Arial Black, sans-serif" font-weight="800" font-size="48" font-stretch="125%" letter-spacing="1" fill="currentColor">JAGA</text></svg>
+    <span>Website V2: analysis, competitors, brand identity and three mockups</span>
+    <a href="https://claude.ai/artifact/CYFHkbtZ3MBtv7mctBBSwB" target="_blank" rel="noopener" lang="de">Deutsche Version</a>
+  </div>
+  <h1>From plan to place.</h1>
+  <p class="lede">JAGA is not a furniture shop and not a manufacturer. JAGA is the specification partner between architects and 13 European contract manufacturers. The new website should show exactly that. This page summarises the analysis, the competitor review and the new identity, and links to the three design directions.</p>
+</header>
+
+<section id="current">
+  <h2>What JAGA does today</h2>
+  <div class="cols">
+    <div>
+      <h3>Business</h3>
+      <p>B2B furnisher for commercial interiors, based in Gdańsk (JAGA Trendy Sp. z o.o.). Advice on manufacturer choice and tenders, samples, CAD data, delivery through to handover. Commercial clients only.</p>
+    </div>
+    <div>
+      <h3>Manufacturers</h3>
+      <p>Pedrali, Magis, Plust, Thonet, Infiniti (café and restaurant), Paged, TON (wooden chairs), Alias, Softline (sofas), Wilkhahn, Profim, Bejot (office chairs), LAS (office systems).</p>
+    </div>
+    <div>
+      <h3>References and markets</h3>
+      <p>Hard Rock Cafe Warsaw (200+ seats), premium office Berlin (120+ workstations), boutique hotel Kraków (80+ pieces). Markets: Poland, Germany, international. Languages: Polish, English, German.</p>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>What works on the current site</h3>
+      <ul>
+        <li>Clear B2B focus and a dedicated message for architects</li>
+        <li>Three languages with a clean URL structure, fast Astro setup</li>
+        <li>A strong list of manufacturers to build on</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What the new site has to fix</h3>
+      <ul>
+        <li><b>The manufacturer logos are AI-generated and faulty</b> (for example "FUNRN HLURE" for Infiniti, a chair photo as the Thonet logo). That is a trademark and trust risk. Request official logos through the manufacturers' dealer press kits. The mockups set the brand names as type for now.</li>
+        <li>The legal notice contains placeholders (Warszawa, zero registry numbers) and contradicts the contact page (Gdańsk)</li>
+        <li>Generic stock photos, each used twice; no photos of completed projects</li>
+        <li>Four competing accent colours, no brand typeface, logo only 112 px wide</li>
+        <li>Claims such as "verified partners" or "24 h response" without proof; no phone number</li>
+        <li>German text hard-coded into the English and Polish home pages</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="competitors">
+  <h2>Competitors: 14 sites checked, 11 usable</h2>
+  <p class="muted">All sites were opened live on 20 November 2026, captured as screenshots and reviewed. lino.cz, mesmetric.com and utilitydesign.co.uk blocked automated access (Cloudflare) and are not part of the review.</p>
+  <div class="scroll" tabindex="0" aria-label="Competitor table, scrolls horizontally">
+  <table>
+    <thead><tr><th>Company</th><th>Model</th><th>Strength</th><th>Weakness</th><th>Idea for JAGA</th></tr></thead>
+    <tbody>
+      <tr><td>.mdd<span class="muted">Poland, mdd.eu</span></td><td>Manufacturer, office and contract</td><td>Best hero in the field: one line, one button, a large interior photo. "For Architects" and "B2B" in the main menu</td><td>Single brand only; prices blur the B2B message</td><td>Project gallery crediting architect and photographer</td></tr>
+      <tr><td>Nowy Styl<span class="muted">Poland, nowystyl.com</span></td><td>Large manufacturer, 70+ countries</td><td>Navigation by space (hotel, restaurant, office), knowledge hub, partner zone for architects</td><td>Hero shows only a trade-fair campaign; menu hidden behind a burger</td><td>Browse by space, not only by product</td></tr>
+      <tr><td>9design<span class="muted">Poland, 9design.pl</span></td><td>Dealer and Warsaw showroom</td><td>Developed architect offer: service desk, 3D models, recommended architects, 3D tour</td><td>Retail look, discount pop-up, rendering errors</td><td>An architect service desk as its own service</td></tr>
+      <tr><td>Alax<span class="muted">Czech Republic, alax.cz</span></td><td>Dealer with a contract arm, sells Pedrali and Bejot</td><td>Segments (hotels, office, healthcare), PROFIZONE login, phone visible</td><td>Marketplace density, 12.8 px base font, mixed languages</td><td>A protected professional area with downloads</td></tr>
+      <tr><td>smow<span class="muted">Germany, smow.de</span></td><td>Design retailer, 17 stores, B2B arm "smow works"</td><td>Lead time on every product card, bookable consultation, Trusted Shops rating</td><td>Consumer-led; B2B hidden in the footer</td><td>Show factory lead time and sample availability</td></tr>
+      <tr><td>architare<span class="muted">Germany, architare.de</span></td><td>Premium dealer with office planning</td><td>Service navigation (office planning, New Work Lab), one line per brand</td><td>Visuals could not be assessed (styles did not load)</td><td>A one-sentence statement for every manufacturer</td></tr>
+      <tr><td>De Projectinrichter<span class="muted">Netherlands</span></td><td>Brand-independent project furnisher, 250+ brands</td><td>Quote list instead of a cart, phase model, certificates, circularity story</td><td>Template look; script font clashes with the body font</td><td>A project list: collect across all brands, send one request</td></tr>
+      <tr><td>Contract Furniture Store<span class="muted">UK</span></td><td>Specialist for European contract furniture</td><td>Entry by sector, "Send us your specification", client logos</td><td>Generic Shopify look, SEO filler text</td><td>Sector entry directly below the hero</td></tr>
+      <tr><td>Living Edge<span class="muted">Australia</span></td><td>Dealer (Herman Miller and others)</td><td>Home page splits "Home" and "Professional" straight away</td><td>Content behind the gate, weak contrast</td><td>A permanent "For architects" entry in the header</td></tr>
+      <tr><td>Space Furniture<span class="muted">Australia</span></td><td>Importer of Italian brands, showrooms</td><td>Services split into Trade, Commercial, Architectural; journal with projects</td><td>Home page leads with 50 % off</td><td>A clear service structure</td></tr>
+      <tr><td>Stylecraft<span class="muted">Australia</span></td><td>Importer and contract specialist since 1953</td><td>Sector tiles, projects with client names, a showroom per city</td><td>Outlet sale in the hero, no clear main button</td><td>References always with city, sector and scope</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="verdict">
+  <h2>Strengths and weaknesses across the market</h2>
+  <div class="verdict">
+    <div>
+      <h3 class="plus">What the best do right</h3>
+      <ul>
+        <li>Professionals are picked up immediately: "For architects" sits in the main menu</li>
+        <li>Entry by sector or space instead of by product category</li>
+        <li>References with city, architect and scope as the main proof of trust</li>
+        <li>Calm, photo-led design with one accent colour and one grotesque typeface</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="minus">Where almost everyone is weak</h3>
+      <ul>
+        <li>Discounts and sales in the hero damage the premium promise</li>
+        <li>A shop cart instead of a request list, although projects are quoted</li>
+        <li>B2B services hidden in the footer or behind a burger menu</li>
+        <li>Interchangeable visuals: white, black and one yellow or orange</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The gap JAGA can own</h3>
+      <ul>
+        <li>None of the sites reviewed makes CAD/BIM downloads and a sample service prominent</li>
+        <li>Nobody speaks the architects' language: item codes, FF&amp;E schedules, tenders</li>
+        <li>A project list across brands with a single request exists only in the Netherlands</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="identity">
+  <h2>The new identity</h2>
+  <div class="cols">
+    <div>
+      <h3>Positioning</h3>
+      <p>The specification partner between architects and Europe's contract manufacturers. We specify, sample and deliver, from one source and across every brand.</p>
+    </div>
+    <div>
+      <h3>Tagline</h3>
+      <p><b>From plan to place.</b> / <b lang="pl">Od planu do miejsca.</b> / <b lang="de">Vom Plan zum Platz.</b></p>
+    </div>
+    <div>
+      <h3>Origin as the idea</h3>
+      <p>Gdańsk is the world capital of amber. The amber orange is already in the old logo. Add the Baltic Sea as ink, the city's Gothic brick as a second colour and Baltic fog as the light ground.</p>
+    </div>
+  </div>
+
+  <div class="swatches" aria-label="Colour palette">
+    <div class="sw"><i style="background:#16232B"></i><b>Baltic Ink</b><span class="code">#16232B</span><span class="muted">Text, dark surfaces</span></div>
+    <div class="sw"><i style="background:#E2891C"></i><b>Bursztyn (amber)</b><span class="code">#E2891C</span><span class="muted">Accent, marks, buttons</span></div>
+    <div class="sw"><i style="background:#A65E0B"></i><b>Deep amber</b><span class="code">#A65E0B</span><span class="muted">Links on light</span></div>
+    <div class="sw"><i style="background:#8E3B2B"></i><b>Cegła (brick)</b><span class="code">#8E3B2B</span><span class="muted">Used sparingly</span></div>
+    <div class="sw"><i style="background:#ECEEEC"></i><b>Mgła (fog)</b><span class="code">#ECEEEC</span><span class="muted">Light ground</span></div>
+    <div class="sw"><i style="background:#C9CFCB"></i><b>Molo (pier)</b><span class="code">#C9CFCB</span><span class="muted">Lines, grid</span></div>
+  </div>
+
+  <div class="specimen">
+    <div class="d">From plan to place.</div>
+    <div class="row">
+      <p>Archivo is the only typeface. Its width carries the personality: <b style="font-stretch:125%">Expanded 800</b> for headlines, normal width for running text, <span class="code">Condensed 600</span> for item codes and quantities.</p>
+    </div>
+    <div class="row">
+      <span class="tag code">CH-01 Bistro chair</span>
+      <span class="tag code">ST-02 Bar stool</span>
+      <span class="tag code">SO-04 Lounge sofa</span>
+      <span class="muted">The spec tag: the item marker from plans and furniture schedules. It is the brand's recognisable element, used as a hotspot on photos, as a list marker and in project references.</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Logo</h3>
+      <p>A room corner from a floor plan in amber plus a square as a chair in elevation, next to JAGA set in Archivo Expanded. "Trendy" stays in the company name, not in the mark.</p>
+    </div>
+    <div>
+      <h3>Motion</h3>
+      <p>The scroll technique of your interior site: one lightweight scroll loop, parallax, lines that draw themselves, a progress line through the process, a horizontal sticky strip. No library, with a reduced-motion fallback.</p>
+    </div>
+    <div>
+      <h3>Avoid</h3>
+      <p>Discounts, all-caps labels above every heading, stock photos of meetings, unproven numbers and promises.</p>
+    </div>
+  </div>
+</section>
+
+<section id="mockups">
+  <h2>Three directions, one identity</h2>
+  <p class="muted">All three use the same brand and the same content. They differ in mood and in their central moment. The photos are Unsplash placeholders until JAGA's own project photos are available. The mockups themselves are in English.</p>
+
+  <div class="mock">
+    <img src="shots/a-spec.png" alt="Preview of direction A: light design with a restaurant photo and spec tags" loading="lazy">
+    <div class="txt">
+      <h3>A: Spec</h3>
+      <p>Light and precise, like a well-set furniture schedule. In the hero, spec tags sit directly on the chairs in the photo. A click shows type and manufacturer and adds the item to the project list. As you scroll, the items of a furniture schedule light up in the photo.</p>
+      <a class="btn" href="https://claude.ai/artifact/6yH9QV6CR8EQDL3L3mmrw1" target="_blank" rel="noopener">Open direction A</a>
+    </div>
+  </div>
+
+  <div class="mock">
+    <img src="shots/b-bursztyn.png" alt="Preview of direction B: dark design with a large headline and amber accents" loading="lazy">
+    <div class="txt">
+      <h3>B: Bursztyn</h3>
+      <p>Dark and cinematic, amber glowing on Baltic ink. The restaurant photo starts as a small window and opens to full width as you scroll. Sectors and manufacturers appear as large typographic lists with image previews.</p>
+      <a class="btn" href="https://claude.ai/artifact/UipGYJCHr1E8fd2zg87tsb" target="_blank" rel="noopener">Open direction B</a>
+    </div>
+  </div>
+
+  <div class="mock">
+    <img src="shots/c-plan.png" alt="Preview of direction C: restaurant floor plan with chair marks and material samples" loading="lazy">
+    <div class="txt">
+      <h3>C: Plan</h3>
+      <p>The architect's drawing board, and the closest to your interior site. A restaurant floor plan draws itself, then 200 chair marks appear (Hard Rock Cafe Warsaw). Add floating material samples, manufacturers as sample cards in a horizontal strip and a project list as a drawer.</p>
+      <a class="btn" href="https://claude.ai/artifact/KK5uqTsNZswg5Pim4YGwDM" target="_blank" rel="noopener">Open direction C</a>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <h2>Recommendation and next steps</h2>
+  <p>My recommendation is <b>A (Spec)</b> as the base, with the floor-plan moment from C for the architects page. A sells most directly what sets JAGA apart from dealers, and it stays light and readable for tender work.</p>
+  <ol class="steps">
+    <li>Align the legal notice and contact details (Gdańsk, KRS, NIP, phone)</li>
+    <li>Get official manufacturer logos and photos of the three reference projects</li>
+    <li>Choose a direction and refine it (final logo artwork, sub-pages)</li>
+    <li>Build it in the existing Astro project with PL/EN/DE and the project list as a lead form in Supabase</li>
+  </ol>
+</section>
+
+</div>
